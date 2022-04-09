@@ -1,0 +1,39 @@
+#!/bin/bash
+shopt -s expand_aliases
+
+alias ccc="cast call $CONTRACT_ADDRESS"
+echo checking info function
+echo "$> cast call $CONTRACT_ADDRESS 'info()(string memory)'"
+ccc 'info()(string memory)'
+
+echo checking info1 function
+echo "$> cast call $CONTRACT_ADDRESS 'info1()(string memory)"
+ccc 'info1()(string memory)'
+
+echo calling info2 with \'hello\'
+echo "$> cast call $CONTRACT_ADDRESS 'info2(string memory)(string memory) hello'"
+ccc 'info2(string memory)(string memory)' hello
+
+echo cgetting infoNum and casting to decimal
+echo "$> cast call $CONTRACT_ADDRESS 'infoNum() | cast --to-dec"
+ccc 'infoNum()' | cast --to-dec
+
+echo calling info42
+echo "$> cast call $CONTRACT_ADDRESS 'info42()(string memory)'"
+ccc 'info42()(string memory)'
+
+echo calling theMethodName
+echo "$> cast call $CONTRACT_ADDRESS 'theMethodName()(string memory)'"
+ccc 'theMethodName()(string memory)'
+
+echo calling method7123949
+echo "$> cast call $CONTRACT_ADDRESS 'method7123949()(string memory)"
+ccc 'method7123949()(string memory)'
+
+echo checking password
+echo "$> cast call $CONTRACT_ADDRESS 'password()(string memory)"
+ccc 'password()(string memory)'
+
+echo calling authenticate with password
+echo "$> cast send --private-key {YOUR PRIVATE KEY} $CONTRACT_ADDRESS 'authenticate(string memory)' ethernaut0"
+cast send --private-key $PRIVATE_KEY $CONTRACT_ADDRESS 'authenticate(string memory)' ethernaut0

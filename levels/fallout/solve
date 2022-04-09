@@ -1,0 +1,7 @@
+#!/bin/bash
+shopt -s expand_aliases
+alias ccs="cast send --private-key $PRIVATE_KEY $CONTRACT_ADDRESS"
+alias cca="cast call $CONTRACT_ADDRESS"
+
+ccs 'Fal1out()' --value 0.0009ether
+ccs 'collectAllocations()'

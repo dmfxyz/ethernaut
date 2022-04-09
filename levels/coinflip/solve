@@ -1,0 +1,31 @@
+#!/bin/bash
+shopt -s expand_aliases
+alias ccs="cast send --private-key $PRIVATE_KEY $CONTRACT_ADDRESS"
+alias cca="cast call $CONTRACT_ADDRESS"
+FACTOR=57896044618658097711785492504343953926634992332820282019728792003956564819968
+LAST_PARENT_BLOCK_HASH=$(cast block latest --json | jq '.parentHash' --raw-output | cast --to-dec)
+num_correct=0
+
+while [ "$num_correct" -lt 10 ]
+do
+    PARENT_BLOCK_HASH=$(cast block latest --json | jq '.parentHash' --raw-output | cast --to-dec)
+    if [[ "$PARENT_BLOCK_HASH" == "$LAST_PARENT_BLOCK_HASH" ]]; then
+        echo "Still in same block, waiting..."
+    else
+        echo "in new block"
+        RESULT=$(python -c "print($PARENT_BLOCK_HASH/$FACTOR)")
+        RESULT="${RESULT//[$'\t\r\n ']}"
+
+        if [[ "$RESULT" == "1"* ]]; then
+            echo "coin is true"
+            ccs 'flip(bool)(bool)' true
+        else
+            echo "coin is false"
+            ccs 'flip(bool)(bool)' false
+        fi
+        echo $RESULT
+        LAST_PARENT_BLOCK_HASH="$PARENT_BLOCK_HASH"
+        num_correct=$((num_correct+1))
+    fi        
+    sleep 1
+done
