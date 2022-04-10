@@ -1,0 +1,23 @@
+#!/bin/bash
+shopt -s expand_aliases
+echo **building and testing flipper contract**
+forge build
+forge test --fork-url $ETH_RPC_URL
+
+echo **deploying flipper contract**
+CONTRACT_ADDRESS=$(forge create --private-key $PRIVATE_KEY src/Flipper.sol:Flipper | sed -n -e 's/^.*Deployed to: //p')
+echo flipper is deployed to: $CONTRACT_ADDRESS
+
+echo ***sleeping for 15 seconds***
+sleep 15
+
+alias ccs="cast send --private-key $PRIVATE_KEY $CONTRACT_ADDRESS"
+echo ***calling contract every 20 seconds***
+while(true)
+do
+    ccs 'winFlip(address)' $TARGET_ADDRESS
+    echo current consecutive wins:
+    cast call $TARGET_ADDRESS 'consecutiveWins()(uint256)'
+    sleep 20
+done
+
