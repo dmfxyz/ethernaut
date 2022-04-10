@@ -1,3 +1,6 @@
 [submodule "levels/telephone/lib/ds-test"]
 	path = levels/telephone/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "levels/token/lib/ds-test"]
+	path = levels/token/lib/ds-test
+	url = https://github.com/dapphub/ds-test
