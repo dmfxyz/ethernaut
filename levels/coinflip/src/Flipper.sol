@@ -5,7 +5,8 @@ contract Flipper {
     constructor() {}
 
     function say42() public pure returns (uint256) {
-        return 42;
+        uint256 forty_two = 42;
+        return forty_two;
     }
 
     function winFlip(address target_address) public returns (bool) {

