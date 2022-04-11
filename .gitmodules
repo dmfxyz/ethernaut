@@ -4,3 +4,6 @@
 [submodule "levels/token/lib/ds-test"]
 	path = levels/token/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "levels/delegation/lib/ds-test"]
+	path = levels/delegation/lib/ds-test
+	url = https://github.com/dapphub/ds-test
