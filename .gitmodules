@@ -7,3 +7,6 @@
 [submodule "levels/delegation/lib/ds-test"]
 	path = levels/delegation/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "levels/force/lib/ds-test"]
+	path = levels/force/lib/ds-test
+	url = https://github.com/dapphub/ds-test
