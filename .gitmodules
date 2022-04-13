@@ -10,3 +10,6 @@
 [submodule "levels/force/lib/ds-test"]
 	path = levels/force/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "levels/king/lib/ds-test"]
+	path = levels/king/lib/ds-test
+	url = https://github.com/dapphub/ds-test
