@@ -16,3 +16,6 @@
 [submodule "levels/reentrancy/lib/ds-test"]
 	path = levels/reentrancy/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "levels/elevator/lib/ds-test"]
+	path = levels/elevator/lib/ds-test
+	url = https://github.com/dapphub/ds-test
