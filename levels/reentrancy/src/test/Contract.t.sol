@@ -10,7 +10,7 @@ contract ContractTest is DSTest {
     Reentrance r;
     Contract c;
     function setUp() public {
-        r = new Reentrance{value: 0.001 ether}();
+        r = new Reentrance{value: 0.004 ether}();
         c = new Contract{value: 0.001 ether}();
     }
 

