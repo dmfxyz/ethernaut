@@ -19,3 +19,6 @@
 [submodule "levels/elevator/lib/ds-test"]
 	path = levels/elevator/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "levels/naught/lib/forge-std"]
+	path = levels/naught/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
