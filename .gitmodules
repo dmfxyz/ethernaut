@@ -22,3 +22,6 @@
 [submodule "levels/naught/lib/forge-std"]
 	path = levels/naught/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "levels/naught/lib/openzeppelin-contracts"]
+	path = levels/naught/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
