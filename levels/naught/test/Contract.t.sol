@@ -27,7 +27,6 @@ contract ContractTest is Test {
         f.forward(address(n), address(this), receiver, forward_allowance);
         (bool balance_ok, bytes memory bal) = address(n).call(abi.encodeWithSignature("balanceOf(address)", receiver));
         uint256 forwarded_balance = abi.decode(bal, (uint256));
-        emit log_uint(forwarded_balance);
-        
+        assertEq(forwarded_balance, totalsupply);        
     }
 }
